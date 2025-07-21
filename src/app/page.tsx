@@ -11,7 +11,7 @@ const Page = () => {
 
   const handleClick = async () => {
     setLoading(true);
-    const resposne = await trackPlausibleEvent(navigator.userAgent, {
+    const response = await trackPlausibleEvent(navigator.userAgent, {
       name: PlausibleEventNames.TEST_EVENT_LISTENER,
       url: window.location.href,
       props: {
