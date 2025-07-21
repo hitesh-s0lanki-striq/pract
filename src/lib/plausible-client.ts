@@ -20,9 +20,17 @@ export class PlausibleClient {
       throw new Error("Event name and properties are required.");
     }
 
-    return await plausibleAxiosInstance(userAgent).post("/event", {
+    const response = await plausibleAxiosInstance(userAgent).post("/event", {
       ...event,
       domain: PlausibleClient.plausibleDomain,
     });
+
+    return {
+      domain: PlausibleClient.plausibleDomain,
+      response: response.data,
+      status: response.status,
+      userAgent,
+      event,
+    };
   }
 }

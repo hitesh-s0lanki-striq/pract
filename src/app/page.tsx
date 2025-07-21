@@ -7,21 +7,24 @@ import { useState } from "react";
 
 const Page = () => {
   const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState("");
 
   const handleClick = async () => {
     setLoading(true);
-    await trackPlausibleEvent(navigator.userAgent, {
+    const resposne = await trackPlausibleEvent(navigator.userAgent, {
       name: PlausibleEventNames.TEST_EVENT_LISTENER,
       url: window.location.href,
       props: {
         org_name: "This is my test Org",
       },
     });
+    setResponse(JSON.stringify(response));
     setLoading(false);
   };
 
   return (
-    <div className=" h-screen flex justify-center items-center ">
+    <div className=" h-screen flex justify-center items-center flex-col gap-10">
+      <p className="text-sm w-1/2">{response}</p>
       <Button onClick={handleClick} disabled={loading}>
         Track Event
       </Button>
