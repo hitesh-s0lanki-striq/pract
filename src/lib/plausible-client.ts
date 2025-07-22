@@ -30,7 +30,6 @@ export class PlausibleClient {
         headers: {
           "User-Agent": userAgent,
           "Content-Type": "application/json",
-          "X-Debug-Request": true,
         },
       }
     );
