@@ -1,5 +1,5 @@
-import { plausibleAxiosInstance } from "@/lib/axios-instance";
 import { PlausibleEventPayloadType } from "./plausible.types";
+import axios from "axios";
 
 export class PlausibleClient {
   private static plausibleDomain: string = process.env.PLAUSIBLE_DOMAIN!;
@@ -20,10 +20,20 @@ export class PlausibleClient {
       throw new Error("Event name and properties are required.");
     }
 
-    const response = await plausibleAxiosInstance(userAgent).post("/event", {
-      ...event,
-      domain: PlausibleClient.plausibleDomain,
-    });
+    const response = await axios.post(
+      "https://plausible.io/api/event",
+      {
+        ...event,
+        domain: PlausibleClient.plausibleDomain,
+      },
+      {
+        headers: {
+          "User-Agent": userAgent,
+          "Content-Type": "application/json",
+          "X-Debug-Request": true,
+        },
+      }
+    );
 
     return {
       domain: PlausibleClient.plausibleDomain,
