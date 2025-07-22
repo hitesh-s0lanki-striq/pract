@@ -6,6 +6,8 @@ export async function POST(req: NextRequest) {
   const userAgent = req.headers.get("user-agent") || "";
   const forwardedFor = req.headers.get("x-forwarded-for")?.split(",")[0] || "";
 
+  console.log(forwardedFor);
+
   // build the Plausible payload
   const payload = {
     ...body,
@@ -15,7 +17,7 @@ export async function POST(req: NextRequest) {
   const resp = await axios.post("https://plausible.io/api/event", payload, {
     headers: {
       "User-Agent": userAgent,
-      "X-Forwarded-For": forwardedFor,
+      "X-Forwarded-For": "::1",
       "Content-Type": "application/json",
       "X-Debug-Request": "true", // optional, returns what Plausible sees
     },
