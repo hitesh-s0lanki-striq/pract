@@ -16,3 +16,16 @@ export const trackPlausibleEvent = async (
     return { error: error.message, status: 500 };
   }
 };
+
+// lib/action.ts
+export async function trackPlausibleEventAction(
+  userAgent: string,
+  event: PlausibleEventPayloadType
+) {
+  const res = await fetch("/api/track-event", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(event),
+  });
+  return res.json();
+}

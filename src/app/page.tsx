@@ -11,14 +11,12 @@ const Page = () => {
 
   const handleClick = async () => {
     setLoading(true);
-    const response = await trackPlausibleEvent(navigator.userAgent, {
+    const result = await trackPlausibleEvent(navigator.userAgent, {
       name: PlausibleEventNames.TEST_EVENT_LISTENER,
       url: window.location.href,
-      props: {
-        org_name: "This is my test Org",
-      },
+      props: { org_name: "This is my test Org" },
     });
-    setResponse(JSON.stringify(response));
+    setResponse(JSON.stringify(result));
     setLoading(false);
   };
 
