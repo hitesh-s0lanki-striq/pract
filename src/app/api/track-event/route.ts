@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   const xff = request.headers.get("x-forwarded-for");
+  const ipVercel = request.headers.get("x-vercel-forwarded-for");
   const clientIp = xff?.split(",")[0] || "::1";
 
   // put event axios event
@@ -34,6 +35,7 @@ export async function POST(request: NextRequest) {
       response: response.data,
       plausibleEvent,
       xff,
+      ipVercel,
     });
   } catch (err) {
     console.error("❌ Failed to send Plausible event:", err);
