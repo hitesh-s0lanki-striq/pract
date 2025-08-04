@@ -29,7 +29,12 @@ export async function POST(request: NextRequest) {
       }
     );
 
-    return NextResponse.json({ clientIp, response: response.data });
+    return NextResponse.json({
+      clientIp,
+      response: response.data,
+      plausibleEvent,
+      xff,
+    });
   } catch (err) {
     console.error("❌ Failed to send Plausible event:", err);
     return NextResponse.json({ message: "Something went wrong" });
